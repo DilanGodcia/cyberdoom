@@ -1,3 +1,3 @@
 # cyberdoom
-pagina de creacioan del juegito porno para la familia y amigos, Uribe.
+pagina de creacioan del juegito porno para la familia y amigos y hijos, Uribe.
 
