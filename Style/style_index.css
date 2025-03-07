@@ -3,6 +3,11 @@ body {
     color: white;
 }
 
+.card-title a {
+    color: white;  /* Cambia el color a blanco o el que prefieras */
+    text-decoration: none;  /* Quita el subrayado */
+}
+
 .category-bar {
     white-space: nowrap;
 }
