@@ -1,209 +1,210 @@
-//board
 let tileSize = 32;
 let rows = 16;
 let columns = 16;
 
 let board;
-let boardWidth = tileSize * columns; // 32 * 16
-let boardHeight = tileSize * rows; // 32 * 16
+let boardWidth;
+let boardHeight;
 let context;
 
-//ship
-let shipWidth = tileSize*2;
+// Ship
+let shipWidth = tileSize * 2;
 let shipHeight = tileSize;
-let shipX = tileSize * columns/2 - tileSize;
-let shipY = tileSize * rows - tileSize*2;
+let shipX;
+let shipY;
+let shipVelocityX = tileSize;
 
 let ship = {
-    x : shipX,
-    y : shipY,
-    width : shipWidth,
-    height : shipHeight
-}
+    x: 0,
+    y: 0,
+    width: shipWidth,
+    height: shipHeight,
+    lives: 3
+};
 
-let shipImg;
-let shipVelocityX = tileSize; //ship moving speed
+let shipImg = new Image();
+shipImg.src = "./img/ship.png";
 
-//aliens
+// Aliens
 let alienArray = [];
-let alienWidth = tileSize*2;
+let alienWidth = tileSize * 2;
 let alienHeight = tileSize;
-let alienX = tileSize;
-let alienY = tileSize;
-let alienImg;
-
 let alienRows = 2;
 let alienColumns = 3;
-let alienCount = 0; //number of aliens to defeat
-let alienVelocityX = 1; //alien moving speed
+let alienVelocityX = 1;
+let alienCount = 0;
 
-//bullets
+let alienImg = new Image();
+alienImg.src = "./img/alien.png";
+
+// Bullets
 let bulletArray = [];
-let bulletVelocityY = -10; //bullet moving speed
+let bulletVelocityY = -10;
+
+// Alien bullets
+let alienBulletArray = [];
+let alienBulletVelocityY = 5;
 
 let score = 0;
-let gameOver = false;
+let YouDie = false;
 
-window.onload = function() {
+window.onload = function () {
     board = document.getElementById("board");
-    board.width = boardWidth;
-    board.height = boardHeight;
-    context = board.getContext("2d"); //used for drawing on the board
-
-    //draw initial ship
-    // context.fillStyle="green";
-    // context.fillRect(ship.x, ship.y, ship.width, ship.height);
-
-    //load images
-    shipImg = new Image();
-    shipImg.src = "./img/ship.png";
-    shipImg.onload = function() {
-        context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
-    }
-
-    alienImg = new Image();
-    alienImg.src = "./img/alien.png";
+    context = board.getContext("2d");
+    
+    resizeCanvas();
     createAliens();
 
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveShip);
     document.addEventListener("keyup", shoot);
+    window.addEventListener("resize", resizeCanvas);
+};
+
+function resizeCanvas() {
+    board.width = window.innerWidth;
+    board.height = window.innerHeight;
+    boardWidth = board.width;
+    boardHeight = board.height;
+
+    ship.x = boardWidth / 2 - ship.width / 2;
+    ship.y = boardHeight - ship.height * 2;
 }
 
 function update() {
     requestAnimationFrame(update);
 
-    if (gameOver) {
+    if (YouDie) {
+        context.fillStyle = "red";
+        context.font = "40px Arial";
+        context.fillText("You Die", boardWidth / 2 - 100, boardHeight / 2);
         return;
     }
 
     context.clearRect(0, 0, board.width, board.height);
 
-    //ship
+    // Draw ship
     context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
-
-    //alien
-    for (let i = 0; i < alienArray.length; i++) {
-        let alien = alienArray[i];
+    
+    // Draw aliens
+    alienArray.forEach(alien => {
         if (alien.alive) {
             alien.x += alienVelocityX;
-
-            //if alien touches the borders
             if (alien.x + alien.width >= board.width || alien.x <= 0) {
                 alienVelocityX *= -1;
-                alien.x += alienVelocityX*2;
-
-                //move all aliens up by one row
-                for (let j = 0; j < alienArray.length; j++) {
-                    alienArray[j].y += alienHeight;
-                }
+                alienArray.forEach(a => a.y += alienHeight);
             }
             context.drawImage(alienImg, alien.x, alien.y, alien.width, alien.height);
-
-            if (alien.y >= ship.y) {
-                gameOver = true;
+            
+            if (Math.random() < 0.005) {
+                alienShoot(alien);
+            }
+            
+            if (alien.y + alien.height >= ship.y) {
+                loseLife();
             }
         }
-    }
-
-    //bullets
-    for (let i = 0; i < bulletArray.length; i++) {
-        let bullet = bulletArray[i];
+    });
+    
+    // Bullets
+    bulletArray.forEach((bullet, index) => {
         bullet.y += bulletVelocityY;
-        context.fillStyle="white";
+        context.fillStyle = "white";
         context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
 
-        //bullet collision with aliens
-        for (let j = 0; j < alienArray.length; j++) {
-            let alien = alienArray[j];
+        alienArray.forEach(alien => {
             if (!bullet.used && alien.alive && detectCollision(bullet, alien)) {
                 bullet.used = true;
                 alien.alive = false;
                 alienCount--;
                 score += 100;
             }
-        }
-    }
+        });
+    });
+    bulletArray = bulletArray.filter(b => !b.used && b.y > 0);
 
-    //clear bullets
-    while (bulletArray.length > 0 && (bulletArray[0].used || bulletArray[0].y < 0)) {
-        bulletArray.shift(); //removes the first element of the array
-    }
+    // Alien bullets
+    alienBulletArray.forEach((bullet, index) => {
+        bullet.y += alienBulletVelocityY;
+        context.fillStyle = "red";
+        context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
 
-    //next level
-    if (alienCount == 0) {
-        //increase the number of aliens in columns and rows by 1
-        score += alienColumns * alienRows * 100; //bonus points :)
-        alienColumns = Math.min(alienColumns + 1, columns/2 -2); //cap at 16/2 -2 = 6
-        alienRows = Math.min(alienRows + 1, rows-4);  //cap at 16-4 = 12
-        if (alienVelocityX > 0) {
-            alienVelocityX += 0.2; //increase the alien movement speed towards the right
+        if (detectCollision(bullet, ship)) {
+            loseLife();
+            bullet.used = true;
         }
-        else {
-            alienVelocityX -= 0.2; //increase the alien movement speed towards the left
-        }
-        alienArray = [];
-        bulletArray = [];
+    });
+    alienBulletArray = alienBulletArray.filter(b => !b.used && b.y < boardHeight);
+
+    // Next level
+    if (alienCount === 0) {
+        alienRows = Math.min(alienRows + 1, rows - 4);
+        alienColumns = Math.min(alienColumns + 1, columns / 2 - 2);
+        alienVelocityX += alienVelocityX > 0 ? 0.2 : -0.2;
         createAliens();
     }
 
-    //score
-    context.fillStyle="white";
-    context.font="16px courier";
-    context.fillText(score, 5, 20);
+    // Score
+    context.fillStyle = "white";
+    context.font = "16px courier";
+    context.fillText(`Score: ${score}  Lives: ${ship.lives}`, 10, 20);
 }
 
 function moveShip(e) {
-    if (gameOver) {
-        return;
-    }
-
-    if (e.code == "ArrowLeft" && ship.x - shipVelocityX >= 0) {
-        ship.x -= shipVelocityX; //move left one tile
-    }
-    else if (e.code == "ArrowRight" && ship.x + shipVelocityX + ship.width <= board.width) {
-        ship.x += shipVelocityX; //move right one tile
+    if (YouDie) return;
+    if (e.code === "ArrowLeft" && ship.x - shipVelocityX >= 0) {
+        ship.x -= shipVelocityX;
+    } else if (e.code === "ArrowRight" && ship.x + shipVelocityX + ship.width <= board.width) {
+        ship.x += shipVelocityX;
     }
 }
 
+function shoot(e) {
+    if (YouDie) return;
+    if (e.code === "Space") {
+        bulletArray.push({
+            x: ship.x + ship.width / 2 - 2,
+            y: ship.y,
+            width: tileSize / 8,
+            height: tileSize / 2,
+            used: false
+        });
+    }
+}
+
+function alienShoot(alien) {
+    alienBulletArray.push({
+        x: alien.x + alien.width / 2 - 2,
+        y: alien.y + alien.height,
+        width: tileSize / 8,
+        height: tileSize / 2,
+        used: false
+    });
+}
+
 function createAliens() {
+    alienArray = [];
     for (let c = 0; c < alienColumns; c++) {
         for (let r = 0; r < alienRows; r++) {
-            let alien = {
-                img : alienImg,
-                x : alienX + c*alienWidth,
-                y : alienY + r*alienHeight,
-                width : alienWidth,
-                height : alienHeight,
-                alive : true
-            }
-            alienArray.push(alien);
+            alienArray.push({
+                x: c * alienWidth + 20,
+                y: r * alienHeight + 20,
+                width: alienWidth,
+                height: alienHeight,
+                alive: true
+            });
         }
     }
     alienCount = alienArray.length;
 }
 
-function shoot(e) {
-    if (gameOver) {
-        return;
-    }
-
-    if (e.code == "Space") {
-        //shoot
-        let bullet = {
-            x : ship.x + shipWidth*15/32,
-            y : ship.y,
-            width : tileSize/8,
-            height : tileSize/2,
-            used : false
-        }
-        bulletArray.push(bullet);
-    }
+function detectCollision(a, b) {
+    return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 }
 
-function detectCollision(a, b) {
-    return a.x < b.x + b.width &&   //a's top left corner doesn't reach b's top right corner
-           a.x + a.width > b.x &&   //a's top right corner passes b's top left corner
-           a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
-           a.y + a.height > b.y;    //a's bottom left corner passes b's top left corner
+function loseLife() {
+    ship.lives--;
+    if (ship.lives <= 0) {
+        YouDie = true;
+    }
 }
