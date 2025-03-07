@@ -46,7 +46,7 @@ let alienBulletArray = [];
 let alienBulletVelocityY = 5;
 
 let score = 0;
-let gameOver = false;
+let YouDie = false;
 
 window.onload = function () {
     board = document.getElementById("board");
@@ -74,10 +74,10 @@ function resizeCanvas() {
 function update() {
     requestAnimationFrame(update);
 
-    if (gameOver) {
+    if (YouDie) {
         context.fillStyle = "red";
         context.font = "40px Arial";
-        context.fillText("GAME OVER", boardWidth / 2 - 100, boardHeight / 2);
+        context.fillText("You Die", boardWidth / 2 - 100, boardHeight / 2);
         return;
     }
 
@@ -151,7 +151,7 @@ function update() {
 }
 
 function moveShip(e) {
-    if (gameOver) return;
+    if (YouDie) return;
     if (e.code === "ArrowLeft" && ship.x - shipVelocityX >= 0) {
         ship.x -= shipVelocityX;
     } else if (e.code === "ArrowRight" && ship.x + shipVelocityX + ship.width <= board.width) {
@@ -160,7 +160,7 @@ function moveShip(e) {
 }
 
 function shoot(e) {
-    if (gameOver) return;
+    if (YouDie) return;
     if (e.code === "Space") {
         bulletArray.push({
             x: ship.x + ship.width / 2 - 2,
@@ -205,6 +205,6 @@ function detectCollision(a, b) {
 function loseLife() {
     ship.lives--;
     if (ship.lives <= 0) {
-        gameOver = true;
+        YouDie = true;
     }
 }
