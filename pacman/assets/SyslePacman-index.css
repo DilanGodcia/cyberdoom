@@ -1,0 +1,323 @@
+body {
+    font-family:'Courier New', Courier, monospace;
+    background-color: #23202A!important ;
+    justify-content: center;
+    align-items: center
+    
+}
+header{
+    background: #17151D;
+    margin-bottom: 40px;
+}
+.form-control{
+    background:#1C1924 ;
+}
+.banner{
+    text-align: center;
+}
+
+
+.game-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.nav-tabs .nav-link {
+    color: white;
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom: 2px solid #00ff00;
+    color: #00ff00;
+}
+
+.H2Space{
+    color: white ;
+}
+.text-muted{
+    color: white;
+}
+
+
+.screenshots{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+    margin: auto;
+
+}
+.scree1,.scree2{
+    flex: 1;
+    padding: 15px;
+    text-align: justify;
+    align-items: center;
+}
+.scree1 img, .scree2 img {
+    width: 200px; /* Tamaño fijo para todas */
+    height: 150px; /* Tamaño fijo */
+    object-fit: cover; /* Recorta sin deformar */
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* aqui empieza */
+
+/* Primera parte Descripcion y Game SoundTrack */
+.middle-panel div {
+    background: #17151D;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 15px;
+ }
+ .middle-panel p{
+     font-style: italic;
+     
+ }
+ .soundtrack-container {
+     background-color: #1f1f23;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+     width: 100%;
+     text-align: justify;
+ }
+ 
+ 
+ #playPauseBtn {
+     background: none;
+     border: 1px solid white;
+     border-radius: 5px;
+     padding: 5px 10px;
+     cursor: pointer;
+     font-size: 1em;
+ }
+ 
+ .song-title {
+     margin-left: 5px;
+ }
+ 
+ .progress-bar {
+     width: 100%;
+     margin-top: 10px;
+     appearance: none;
+     background: #444;
+     height: 5px;
+     border-radius: 5px;
+ }
+ 
+ .song-list {
+     list-style: none;
+     padding: 0;
+     margin-top: 10px;
+ }
+ 
+ .download-button {
+     background-color: #ffcc00;
+     color: black;
+     border: none;
+     padding: 10px;
+     width: 100%;
+     border-radius: 5px;
+     margin-top: 10px;
+     cursor: pointer;
+     font-weight: bold;
+ }
+ 
+ .download-button a {
+     text-decoration: none;
+     color: black;
+     font-weight: bold;
+ }
+ /* -------------------- */
+ /* Segunda,Recomendacion de juegos */
+ .recommendations {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color:#17151D;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+.recommendations h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.games-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.game {
+    background-color:#2A2731;
+    padding: 15px;
+    border-radius: 10px;
+    width: 22%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.game img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.game h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.game p {
+    font-size: 14px;
+    color: #bbb;
+}
+
+/* ---------------------- */
+/* Tercera compartir, comentarios */
+
+.left-panel, .middle-panel, .right-panel {
+    padding: 15px;
+    color: #ffffff;
+    border-radius: 8px;
+
+}
+.stats {
+    display: flex;
+    gap: 15px; /* Espacio entre elementos */
+    align-items: center; /* Alineación vertical */
+}
+.stats p {
+    margin: 0; /* Elimina márgenes predeterminados     background-color: #2A2731;*/
+}
+.btn {
+    background-color: #4A4458; /* Un tono más claro para contraste */
+    color: white; /* Texto en blanco */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #5A5370; /* Color al pasar el mouse */
+}
+
+.share{
+    font-size: 20px;
+    background-color: #2A2731;
+    padding: 15px;
+    border-radius: 20px;
+    
+}
+.share input, .btn-copy{
+    height: 40px;
+}
+.share-input{
+    border: 0.2px solid; /* Define el borde delgado */
+    border-radius: 5px;
+    background-color: #2A2731;
+    color: #ffffff;
+    padding-left: 10px;
+    width: 80%;
+    
+}
+.btn-copy{
+    background-color: #2A2731;
+    color: #ffffff;
+    font-size: 15px;
+    
+    
+}
+
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.input-group input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+
+
+.comments {
+   
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+    background: #2A2731;
+    border-radius: 10px;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.comment img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    max-width: 300px;
+}
+
+.comment-content strong {
+    display: block;
+    font-size: 14px;
+}
+
+.comment-content p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #cccccc;
+}
+
+.comments input{
+    border: 0.1px solid #ffffff; /* Define el borde delgado */
+    border-radius: 5px;
+    background-color: #2A2731;
+    color: #ffffff;
+    padding-left: 10px;
+    width: 100%;
+    height: 35px;
+    margin-bottom: 25px;
+
+
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.input-group input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+
