@@ -9,6 +9,12 @@ header{
     background: #17151D;
     margin-bottom: 40px;
 }
+header a{
+    color: white;  /* Cambia el color a blanco o el que prefieras */
+    text-decoration: none;
+
+}
+
 .form-control{
     background:#1C1924 ;
 }
