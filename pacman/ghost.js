@@ -281,20 +281,4 @@ let drawGhosts = () => {
 let ghostsVulnerable = false;
 let ghostsTimer = null;
 
-let weakenGhosts = () => {
-    ghostsVulnerable = true;
 
-    // Cambiar el color de los fantasmas a azul
-    ghosts.forEach(ghost => {
-        ghost.imageX = 352; // Coordenada de imagen para el modo azul
-    });
-
-    // Restaurar los fantasmas después de 10 segundos
-    clearTimeout(ghostsTimer);
-    ghostsTimer = setTimeout(() => {
-        ghostsVulnerable = false;
-        ghosts.forEach(ghost => {
-            ghost.imageX = ghost.defaultImageX; // Restaurar su imagen original
-        });
-    }, 10000);
-};

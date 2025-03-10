@@ -345,16 +345,12 @@ function restartGame() {
     gameInterval = setInterval(gameLoop, 1000 / fps);
 }
 
-
-
-
-
-
 if (lives <= 0) {
     gameOver = true;
     clearInterval(gameInterval);
     console.log("GAME OVER. Presiona 'R' para reiniciar.");
 }
+
 
 
 
