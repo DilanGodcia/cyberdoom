@@ -3,16 +3,26 @@
 <head>
     <title>Hojas de Vida - Proyecto</title>
     <link rel="stylesheet" href="hdv_styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 
 <header>
-    <h1>Equipo de Trabajo - Proyecto CyberDoom</h1>
+    <nav class="navbar ">
+        <div class="container-fluid">
+            <a class="navbar-brand text-success" href="../index.html">CyberDoom</a>
+            <input class="form-control me-2 w-25" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success">Añadir Juego</button>
+        </div>
+    </nav>
+
 </header>
 
-<main class="contenedor-tarjetas">
-
-    <!-- Camilo -->
+<main>
+    <h1>Equipo de Trabajo - Proyecto CyberDoom</h1>
+    <div class="contenedor-tarjetas">
+           <!-- Camilo -->
     <div class="tarjeta">
         <img src="img/camilo.jpeg" alt="Foto de Camilo">
         <div class="info">
@@ -27,7 +37,7 @@
 
     <!-- Dylan -->
     <div class="tarjeta">
-        <img src="img/laura.jpg" alt="Foto de Dylan">
+        <img src="./img/camilo.jpeg" alt="Foto de Dylan">
         <div class="info">
             <h2>Dylan</h2>
             <p><strong>Rol:</strong> Programador de Funcionalidades</p>
@@ -39,7 +49,7 @@
 
     <!-- Jose -->
     <div class="tarjeta">
-        <img src="img/maria.jpg" alt="Foto de Jose">
+        <img src="./img/jose.jpg" alt="Foto de Jose">
         <div class="info">
             <h2>Jose</h2>
             <p><strong>Rol:</strong> Estilización y diseño visual.</p>
@@ -51,7 +61,7 @@
 
     <!-- Richard -->
     <div class="tarjeta">
-        <img src="img/carlos.jpg" alt="Foto de Richard">
+        <img src="./img/richar.jpg" alt="Foto de Richard">
         <div class="info">
             <h2>Richard</h2>
             <p><strong>Rol:</strong> Desarrollador Frontend</p>
@@ -61,7 +71,16 @@
         </div>
     </div>
 
+</div>
+
 </main>
+<footer class="bg-dark text-light text-center p-3 mt-4">
+    <p>&copy; 2025 CyberDoom. Todos los derechos reservados.</p>
+    <nav>
+        <a href="#" class="text-light me-3">Términos y condiciones</a>
+        <a href="#" class="text-light">Política de privacidad</a>
+    </nav>
+</footer>
 
 </body>
 </html>

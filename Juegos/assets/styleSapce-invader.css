@@ -7,6 +7,7 @@ body {
 }
 header{
     background: #17151D;
+    margin-bottom: 40px;
 }
 .form-control{
     background:#1C1924 ;
@@ -235,9 +236,7 @@ header{
     
     
 }
-.socials{
-  /* jj */
-}
+
 
 .input-group {
     display: flex;

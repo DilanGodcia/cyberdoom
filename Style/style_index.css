@@ -1,19 +1,24 @@
 body {
-    background-color: #121212;
+    background-color: #23202A;
     color: white;
 }
-
-.card-title a {
-    color: white;  /* Cambia el color a blanco o el que prefieras */
-    text-decoration: none;  /* Quita el subrayado */
+header{
+    background: #17151D;
+    margin-bottom: 40px;
 }
+a{
+    color: white;  /* Cambia el color a blanco o el que prefieras */
+    text-decoration: none;
+
+}
+
 
 .category-bar {
     white-space: nowrap;
 }
 
 .game-card {
-    background-color: #1e1e1e;
+    background-color: #17151D;
     border: none;
     color: white;
 }

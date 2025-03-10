@@ -6,20 +6,22 @@
 }
 
 body {
-    background-color: #111;
-    color: white;
+    background-color:  #23202A!important;
+    color: white !important;
     font-family: Arial, sans-serif;
-    padding: 20px;
+    
+}
+header{
+    background: #17151D;
 }
 
 /* Header */
-header {
+
+
+h1 {
+    color: #4caf50;
     text-align: center;
     margin-bottom: 20px;
-}
-
-header h1 {
-    color: #4caf50;
 }
 
 /* Contenedor de las tarjetas */
@@ -61,3 +63,4 @@ header h1 {
     color: #4caf50;
     margin-bottom: 10px;
 }
+
