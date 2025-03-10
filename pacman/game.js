@@ -21,9 +21,10 @@ let ghostImageLocations = [
     { x: 176, y: 121 },
 ];
 
-// Game variables
+let player = { x: 100, y: 200, lives: 3 };
 let fps = 30;
 let pacman;
+let GameOver = false;
 let oneBlockSize = 20;
 let score = 0;
 let ghosts = [];
@@ -31,9 +32,13 @@ let wallSpaceWidth = oneBlockSize / 1.6;
 let wallOffset = (oneBlockSize - wallSpaceWidth) / 2;
 let wallInnerColor = "black";
 
-// we now create the map of the walls,
-// if 1 wall, if 0 not wall
-// 21 columns // 23 rows
+function startGame() {
+    player.x = 100;
+    player.y = 200;
+    player.lives = 3;
+}
+
+
 let map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -71,11 +76,6 @@ let randomTargetsForGhosts = [
 ];
 
 
-// for (let i = 0; i < map.length; i++) {
-//     for (let j = 0; j < map[0].length; j++) {
-//         map[i][j] = 2;
-//     }
-// }
 
 let createNewPacman = () => {
     pacman = new Pacman(
@@ -101,15 +101,36 @@ let restartPacmanAndGhosts = () => {
 
 let onGhostCollision = () => {
     lives--;
-    restartPacmanAndGhosts();
     if (lives == 0) {
+        triggerGameOver();
+        clearInterval(gameInterval); 
+    } else {
+        restartPacmanAndGhosts();
     }
 };
 
+function triggerGameOver() {
+    gameOver = true;
+    clearInterval(gameInterval);
+    showGameOverScreen();
+}
+
+function showGameOverScreen() {
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    createRect(0, 0, canvas.width, canvas.height, "black");
+
+    canvasContext.fillStyle = "red";
+    canvasContext.font = "50px";
+    canvasContext.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+}
+
+
 let update = () => {
+    if (GameOver) return;
     pacman.moveProcess();
     pacman.eat();
     updateGhosts();
+   
     if (pacman.checkGhostCollision(ghosts)) {
         onGhostCollision();
     }
@@ -119,7 +140,7 @@ let drawFoods = () => {
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[0].length; j++) {
             if (map[i][j] == 2) {
-                // Dibujar la comida normal
+                
                 createRect(
                     j * oneBlockSize + oneBlockSize / 3,
                     i * oneBlockSize + oneBlockSize / 3,
@@ -128,13 +149,13 @@ let drawFoods = () => {
                     "#FEB897"
                 );
             } else if (map[i][j] == 3) {
-                // Dibujar las Power Pellets
+                
                 canvasContext.fillStyle = "white";
                 canvasContext.beginPath();
                 canvasContext.arc(
                     j * oneBlockSize + oneBlockSize / 2,
                     i * oneBlockSize + oneBlockSize / 2,
-                    oneBlockSize / 4, // Tamaño más grande que la comida normal
+                    oneBlockSize / 4, 
                     0,
                     Math.PI * 2
                 );
@@ -155,7 +176,7 @@ function drawPowerPellets(ctx) {
     powerPellets.forEach(pellet => {
         if (!pellet.eaten) {
             ctx.beginPath();
-            ctx.arc(pellet.x, pellet.y, 8, 0, Math.PI * 2); // Más grande que las bolitas normales
+            ctx.arc(pellet.x, pellet.y, 8, 0, Math.PI * 2); 
             ctx.fill();
 
         }
@@ -167,7 +188,7 @@ function drawPowerPellets(ctx) {
 let drawRemainingLives = () => {
     canvasContext.font = "20px Emulogic";
     canvasContext.fillStyle = "white";
-    canvasContext.fillText("Lives: ", 220, oneBlockSize * (map.length + 1));
+    canvasContext.fillText("Lives: ", 200, oneBlockSize * (map.length + 1));
 
     for (let i = 0; i < lives; i++) {
         canvasContext.drawImage(
@@ -301,3 +322,40 @@ window.addEventListener("keydown", (event) => {
         }
     }, 1);
 });
+
+document.addEventListener("keydown", function(event) {
+    if (gameOver && event.key === "r") {
+        restartGame();
+    }
+});
+
+function restartGame() {
+    console.log("🔄 Reiniciando juego...");
+
+    // Restaurar vidas y puntaje
+    lives = 3;
+    score = 0;
+    gameOver = false;
+
+    // Reiniciar Pac-Man y Fantasmas
+    restartPacmanAndGhosts();
+
+    // Volver a iniciar el loop del juego
+    clearInterval(gameInterval); // Por si sigue activo
+    gameInterval = setInterval(gameLoop, 1000 / fps);
+}
+
+
+
+
+
+
+if (lives <= 0) {
+    gameOver = true;
+    clearInterval(gameInterval);
+    console.log("GAME OVER. Presiona 'R' para reiniciar.");
+}
+
+
+
+
