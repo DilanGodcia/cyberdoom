@@ -8,19 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const commentList = document.querySelector('.left-panel .comments .comment-list');
     const copyButton = document.querySelector('.share .btn-copy');
     const shareInput = document.querySelector('.share .share-input');
-   
+    const pageKey = `comments_${window.location.pathname.split('/').pop()}`;
+
+    // Load comments from local storage
     function loadComments() {
-        const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+        const savedComments = JSON.parse(localStorage.getItem(pageKey)) || [];
         savedComments.forEach(comment => {
             addCommentToList(comment.name, comment.username, comment.text, false);
         });
     }
     
-
+    // Save comments to local storage
     function saveComment(name, username, text) {
-        const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+        const savedComments = JSON.parse(localStorage.getItem(pageKey)) || [];
         savedComments.unshift({ name, username, text });
-        localStorage.setItem('comments', JSON.stringify(savedComments));
+        localStorage.setItem(pageKey, JSON.stringify(savedComments));
     }
 
     // Ensure spaces are allowed in the inputs
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const newComment = document.createElement('li');
         newComment.className = 'comment';
         newComment.innerHTML = `
-            <img src="./img/gato.jpg" alt="User Avatar" class="comment-avatar">
+            <img src="./img/perfil.jpg" alt="User Avatar" class="comment-avatar">
             <div class="comment-content">
                 <strong>${name}</strong> @${username.replace('@', '')}
                 <p>${commentText}</p>
@@ -108,14 +110,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-});
-const audio = document.getElementById("audioPlayer"); 
-    const playPauseBtn = document.getElementById("playPauseBtn"); 
-    const progressBar = document.getElementById("progressBar"); 
-
-    playPauseBtn.addEventListener("click", () => { 
-        if (audio.paused) { audio.play(); playPauseBtn.textContent = "⏸"; } else { audio.pause(); playPauseBtn.textContent = "▶";
-
-     } 
 });

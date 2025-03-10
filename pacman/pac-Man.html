@@ -33,7 +33,7 @@
             </section>
     
             <section class="game-info d-flex align-items-center mt-3">
-                <img src="../Juegos/img/space-logo.jpg" class="game-logo me-3" alt="Game Logo">
+                <img src="./img/pac-man-icon-logo-.png" class="game-logo me-3" alt="Game Logo">
                 <div>
                     <h2 class="H2Space">PAC-MAN</h2>
                     <p class="text-muted">by CyberDoom</p>
@@ -46,30 +46,7 @@
                 
             </nav>
             
-            <section id="commentModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <div class="comment-input">
-                        <textarea id="newComment" placeholder="Escribe un comentario..."></textarea>
-                        <button onclick="addComment()">Enviar</button>
-                    </div>
-                    <h2>Comentarios</h2>
-                    <div id="comments-container">
-                        <article class="comment">
-                            <img src="profile.jpg" alt="Foto de perfil" class="profile-pic">
-                            <div class="comment-content">
-                                <span class="profile-name">Usuario</span>
-                                <span class="profile-handle">@usuario</span>
-                                <span class="comment-date">Hace 2 horas</span>
-                                <p>Este es un comentario de prueba.</p>
-                                <div class="comment-actions">
-                                    <span class="link-icon" onclick="linkComment(this)">🔗</span>
-                                    <span class="unlink-icon" onclick="unlinkComment(this)">❌</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
+          
             </section>
         
             <section class="screenshots text-center">
@@ -105,13 +82,13 @@
                     </div>
                     <div class="player">
                         <button id="playPauseBtn">▶</button>
-                        <span class="song-title">Space Invaders 🎵</span>
+                        <span class="song-title">Pac-Man🎵</span>
                     </div>
             
                     <input type="range" id="progressBar" class="progress-bar" min="0" max="100" value="0">
             
                     <ul class="song-list">
-                        <li>[mindphase1] Space Invaders</li>
+                        <li>[mindphase1] Pac-Man</li>
                     </ul>
             
                     <button class="download-button">
@@ -185,7 +162,7 @@
                     </div>
                     <ul class="comment-list">
                         <li class="comment">
-                            <img src="./img/gato.jpg" alt="User Avatar" class="comment-avatar">
+                            <img src="./img/perfil.jpg" alt="User Avatar" class="comment-avatar">
                             <div class="comment-content">
                                 <strong>xpaulinnx</strong> @xpaulinnx
                                 <p>I really like this game :)</p>
@@ -208,6 +185,7 @@
         </nav>
     </footer>
     <script src="./assets/pacmanAudio.js"></script>
+    <script src="./assets/comenPacman.js"></script>
     <script src="ghost.js"></script>
     <script src="pacman.js"></script>
     <script src="game.js"></script>

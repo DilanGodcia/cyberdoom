@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="./assets/styleSapce-invader.css">
         <link rel="stylesheet" href="./assets/space.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="./assets/space.js"></script>
+       
         
     
     </head>
@@ -40,35 +40,10 @@
             
             <nav class="nav nav-tabs mt-3">
                 <a class="nav-link active" href="#">Descripción general</a>
-                <a class="nav-link" onclick="comment()">Comentarios </a>
-                
+    
             </nav>
             
-            <section id="commentModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <div class="comment-input">
-                        <textarea id="newComment" placeholder="Escribe un comentario..."></textarea>
-                        <button onclick="addComment()">Enviar</button>
-                    </div>
-                    <h2>Comentarios</h2>
-                    <div id="comments-container">
-                        <article class="comment">
-                            <img src="profile.jpg" alt="Foto de perfil" class="profile-pic">
-                            <div class="comment-content">
-                                <span class="profile-name">Usuario</span>
-                                <span class="profile-handle">@usuario</span>
-                                <span class="comment-date">Hace 2 horas</span>
-                                <p>Este es un comentario de prueba.</p>
-                                <div class="comment-actions">
-                                    <span class="link-icon" onclick="linkComment(this)">🔗</span>
-                                    <span class="unlink-icon" onclick="unlinkComment(this)">❌</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </section>
+            
         
             <section class="screenshots text-center">
                 <figure class="scree1">
@@ -172,23 +147,23 @@
                 
                 <article class="share">
                     <p><strong>Compartir</strong></p>
-                    <div>
+                    <div class="share-container">
                         <input type="text" value="http://127.0.0.1:5500/Juegos/indexspace.html" readonly class="share-input">
                         <button class="btn-copy">Copy</button>
                     </div>
                     <hr>
                     <nav class="socials">
-                        <button class="btn"><a href="https://www.facebook.com/">Facebook</a> </button>
-                        <button class="btn">  <a href="https://x.com/?lang=es">Twitter</a></button>
+                        <button class="btn"><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></button>
+                        <button class="btn"><a href="https://x.com/?lang=es" target="_blank" rel="noopener">Twitter</a></button>
                     </nav>
                 </article>
                 
                 <article class="comments">
-                    <h3>Comentario</h3>
+                    <h3>Comentarios</h3>
                     <div class="input-group">
                         <input type="text" placeholder="Nombre de usuario" class="name-input">
                         <input type="text" placeholder="@usuario" class="username-input">
-                        <input type="text" placeholder="Escribe tu comentario...." class="comment-input">
+                        <input type="text" placeholder="Escribe tu comentario..." class="comment-input" spellcheck="true" autocomplete="off">
                         <button class="btn-send">Enviar</button>
                     </div>
                     <ul class="comment-list">
@@ -215,6 +190,7 @@
             <a href="#" class="text-light">Política de privacidad</a>
         </nav>
     </footer>
+    <script src="./assets/space.js"></script>
     <script src="./assets/spaceInvader-Index.js"></script>
 </body>
 

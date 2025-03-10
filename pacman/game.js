@@ -31,9 +31,7 @@ let wallSpaceWidth = oneBlockSize / 1.6;
 let wallOffset = (oneBlockSize - wallSpaceWidth) / 2;
 let wallInnerColor = "black";
 
-// we now create the map of the walls,
-// if 1 wall, if 0 not wall
-// 21 columns // 23 rows
+
 let map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
